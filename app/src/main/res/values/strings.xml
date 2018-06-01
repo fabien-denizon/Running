@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">running</string>
+    <!-- *******************-->
+    <!--  Main page strings -->
+    <!-- ****************** -->
+
+    <!-- Start activities -->
+    <string name="main_start_button">Start</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="running_title">Running</string>
+</resources>

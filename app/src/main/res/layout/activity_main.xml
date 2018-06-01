@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="2"
+    android:rowCount="2"
+    >
+
+    <TextView
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:text="running"
+        android:id="@+id/main_start_running" />
+    <TextView
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:text="cycling"/>
+
+</GridLayout>
