@@ -22,9 +22,11 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         //initialise the main page
         final TextView textView;
+        TextView textView1;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView = findViewById(R.id.main_start_running);
+
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         myLocationListener = new MyLocationListener();
 
@@ -46,10 +48,25 @@ public class MainActivity extends FragmentActivity {
                 startRunning();
             }
         });
+
+       //put a listener on the Track view to start to manage the tracks recorded
+        textView1 = findViewById(R.id.main_start_tracks);
+        textView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startTrackManager();
+            }
+        });
     }
 
     public void startRunning(){
         Intent intent = new Intent(this, Running.class);
         startActivity(intent);
     }
+
+    public void startTrackManager(){
+        Intent intent = new Intent(this, TrackManager.class);
+        startActivity(intent);
+    }
+
 }

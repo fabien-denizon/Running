@@ -19,6 +19,13 @@ public class MyLocationListener implements LocationListener{
 
         //add the new location in the singleton
         LocationData.getInstance().setLocationGPS(latitude,longitude);
+
+        if(LocationData.getIsStarted() == false){
+            //we initialize LatStart and LngStart with the last known location of the runner when he started the app
+            LocationData.getInstance().setLatStart(latitude);
+            LocationData.getInstance().setLngStart(longitude);
+            LocationData.setIsStared(true);
+        }
     }
 
     @Override

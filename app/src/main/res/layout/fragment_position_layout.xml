@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -13,9 +15,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/show_coordonates"/>
-   <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    android:name="com.google.android.gms.maps.MapFragment"
-    android:id="@+id/map"
-    android:layout_width="match_parent"
-    android:layout_height="300dp"/>
+    <!--  TargetLat and TargetLng are my location
+          Bearing = 0 => look north ( 180 for south )
+          Zoom 14 for the good zoom to see an area-->
+    <fragment
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:id="@+id/map_fragment"
+        android:name="com.google.android.gms.maps.MapFragment"
+        map:cameraTargetLat="43.6102356"
+        map:cameraTargetLng="1.4814695"
+        map:cameraBearing="0"
+        map:cameraZoom="14"/>
 </LinearLayout>

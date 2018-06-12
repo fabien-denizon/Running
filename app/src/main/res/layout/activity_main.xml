@@ -10,11 +10,12 @@
     <TextView
         android:layout_width="160dp"
         android:layout_height="160dp"
-        android:text="running"
+        android:text="@string/main_start_running"
         android:id="@+id/main_start_running" />
     <TextView
         android:layout_width="160dp"
         android:layout_height="160dp"
-        android:text="cycling"/>
+        android:text="@string/main_view_tracks"
+        android:id="@+id/main_start_tracks"/>
 
 </GridLayout>
