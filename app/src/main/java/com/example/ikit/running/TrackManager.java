@@ -1,14 +1,13 @@
 package com.example.ikit.running;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.widget.TextView;
+import android.support.v7.app.AppCompatActivity;
 
-public class Running extends FragmentActivity {
+public class TrackManager extends AppCompatActivity{
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.running_layout);
+        setContentView(R.layout.track_layout);
     }
 }

@@ -6,9 +6,15 @@
 
     <!-- Start activities -->
     <string name="main_start_button">Start</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="main_start_running">Running</string>
+    <string name="main_view_tracks">Voir les parcours</string>
 
     <string name="running_title">Running</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="track_manager_title">Gérer les parcours</string>
+
+    <!-- ********************* -->
+    <!-- Resources for the map -->
+    <!-- ********************* -->
+    <string name="map_api_key">AIzaSyAj8AGdzEFFHtZNjQ4pt6KjJJYOsr3ESwg</string>
 </resources>

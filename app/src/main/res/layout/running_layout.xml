@@ -12,7 +12,6 @@
         android:layout_height="match_parent"
         android:name="com.example.ikit.running.PositionFragment"
         android:id="@+id/fragment_position_running">
-
     </fragment>
 
 </LinearLayout>
