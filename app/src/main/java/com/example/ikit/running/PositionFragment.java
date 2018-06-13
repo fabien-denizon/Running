@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import static android.content.Context.MODE_ENABLE_WRITE_AHEAD_LOGGING;
+import static android.content.Context.MODE_PRIVATE;
+import static com.example.ikit.running.Constantes.DIR_NAME_TRACK;
 
 public class PositionFragment extends Fragment implements OnMapReadyCallback {
     GoogleMap gMap;
@@ -58,8 +63,6 @@ public class PositionFragment extends Fragment implements OnMapReadyCallback {
         nameFile+=date.get(Calendar.DAY_OF_MONTH);
         nameFile+=date.get(Calendar.HOUR_OF_DAY);
         nameFile+=date.get(Calendar.MINUTE);
-        File trackRace = new File(getContext().getFilesDir(),nameFile);
-
         //String that contain the entire track
         String trackToSave = "";
         TextView textView = getView().findViewById(R.id.show_coordonates);
@@ -87,14 +90,16 @@ public class PositionFragment extends Fragment implements OnMapReadyCallback {
                 .newCameraPosition(cameraPosition));
         gMap.addPolyline(options);
         textView.setText(trackToSave);
-        //write into the text
-        try {
-            outputStream = getActivity().getApplicationContext().openFileOutput(nameFile, Context.MODE_PRIVATE);
-            outputStream.write(trackToSave.getBytes());
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            File dir = getActivity().getApplicationContext().getDir(Constantes.DIR_NAME_TRACK,MODE_PRIVATE);
+            File file =  new File(dir, nameFile);
+           Log.d("FILE", "directory name "+dir.getName().toString());
+            try{
+                outputStream = new FileOutputStream(file);
+                outputStream.write(trackToSave.getBytes());
+                outputStream.close();
+            } catch (Exception e2){
+                e2.printStackTrace();
+            }
     }
 
     @Override
