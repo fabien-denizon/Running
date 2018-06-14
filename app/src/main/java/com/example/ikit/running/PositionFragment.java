@@ -2,7 +2,6 @@ package com.example.ikit.running;
 
 import android.annotation.TargetApi;
 import android.app.Fragment;
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,9 +24,7 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import static android.content.Context.MODE_ENABLE_WRITE_AHEAD_LOGGING;
 import static android.content.Context.MODE_PRIVATE;
-import static com.example.ikit.running.Constantes.DIR_NAME_TRACK;
 
 public class PositionFragment extends Fragment implements OnMapReadyCallback {
     GoogleMap gMap;
@@ -70,36 +67,46 @@ public class PositionFragment extends Fragment implements OnMapReadyCallback {
         PolylineOptions options = new PolylineOptions();
         ArrayList<GPSLocationData> listCoordinates = LocationData.getInstance().getLocationGPS();
         int i;
-
-        //build the track of the race
-        for(i=0; i< listCoordinates.size(); i++){
-            lastKnownPosition = new LatLng(listCoordinates.get(i).getLatitude(),
-                    listCoordinates.get(i).getLongitude());
+        if(mapReady){
+            if(listCoordinates.size()>0) {
+                //build the track of the race
+                for (i = 0; i < listCoordinates.size(); i++) {
+                    lastKnownPosition = new LatLng(listCoordinates.get(i).getLatitude(),
+                            listCoordinates.get(i).getLongitude());
                     options.add(lastKnownPosition);
                     //we add the coordinates to the trackToSave with a # to separate Lat and Long and / to separate different points
-                    trackToSave+=""+listCoordinates.get(i).getLatitude()+"#"+listCoordinates.get(i).getLongitude()+"/";
+                    trackToSave += "" + listCoordinates.get(i).getLatitude() + "#" + listCoordinates.get(i).getLongitude() + "/";
+                }
+
+                //put the camera to the last position of the runner
+                CameraPosition cameraPosition = CameraPosition.builder()
+                        .target(lastKnownPosition)
+                        .zoom(14)
+                        .build();
+                gMap.moveCamera(
+                        CameraUpdateFactory
+                                .newCameraPosition(cameraPosition));
+                gMap.addPolyline(options);
+                textView.setText(trackToSave);
+                File dir = getActivity().getApplicationContext().getDir(Constantes.DIR_NAME_TRACK, MODE_PRIVATE);
+                File file = new File(dir, nameFile);
+                Log.d("FILE", "directory name " + dir.getName().toString());
+                try {
+                    outputStream = new FileOutputStream(file);
+                    outputStream.write(trackToSave.getBytes());
+                    outputStream.close();
+                } catch (Exception e2) {
+                    e2.printStackTrace();
+                }
+            }
+            else{
+                textView.setText("Aucun tracé n'a été enregistré");
+            }
+        }
+        else{
+            textView.setText("La map n'est pas encore prete");
         }
 
-        //put the camera to the last position of the runner
-        CameraPosition cameraPosition = CameraPosition.builder()
-                                        .target(lastKnownPosition)
-                                        .zoom(14)
-                                        .build();
-        gMap.moveCamera(
-                CameraUpdateFactory
-                .newCameraPosition(cameraPosition));
-        gMap.addPolyline(options);
-        textView.setText(trackToSave);
-            File dir = getActivity().getApplicationContext().getDir(Constantes.DIR_NAME_TRACK,MODE_PRIVATE);
-            File file =  new File(dir, nameFile);
-           Log.d("FILE", "directory name "+dir.getName().toString());
-            try{
-                outputStream = new FileOutputStream(file);
-                outputStream.write(trackToSave.getBytes());
-                outputStream.close();
-            } catch (Exception e2){
-                e2.printStackTrace();
-            }
     }
 
     @Override
