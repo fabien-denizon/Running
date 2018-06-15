@@ -75,7 +75,7 @@ public class PositionFragment extends Fragment implements OnMapReadyCallback {
                             listCoordinates.get(i).getLongitude());
                     options.add(lastKnownPosition);
                     //we add the coordinates to the trackToSave with a # to separate Lat and Long and / to separate different points
-                    trackToSave += "" + listCoordinates.get(i).getLatitude() + "#" + listCoordinates.get(i).getLongitude() + "/";
+                    trackToSave += "" + lastKnownPosition.latitude + "#" + lastKnownPosition.longitude + "/";
                 }
 
                 //put the camera to the last position of the runner
@@ -98,6 +98,7 @@ public class PositionFragment extends Fragment implements OnMapReadyCallback {
                 } catch (Exception e2) {
                     e2.printStackTrace();
                 }
+                textView.setText(trackToSave);
             }
             else{
                 textView.setText("Aucun tracé n'a été enregistré");

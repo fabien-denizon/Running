@@ -57,8 +57,6 @@ public class DisplayRace extends AppCompatActivity implements OnMapReadyCallback
     }
 
     public void displayRaceOnMap(){
-        ArrayList<Coordinates> track = new ArrayList<>();
-        Coordinates coord = new Coordinates();
         String[] fileCoordinates;
         PolylineOptions options = new PolylineOptions();
         LatLng startPoint = new LatLng(0,0);
@@ -96,21 +94,14 @@ public class DisplayRace extends AppCompatActivity implements OnMapReadyCallback
         fileCoordinates = stringBuilder.toString().split("/");
         String[] tmp;
         for(int i=0;i<fileCoordinates.length;i++){
-            tmp = fileCoordinates[i].split("#");
-            coord.setLatitude(parseDouble(tmp[0]));
-            coord.setLongitude(parseDouble(tmp[1]));
-            track.add(coord);
-        }
 
-        //build the polyline
-        for(int i = 0; i<track.size();i++){
-            //if it's the first point, create the marker first point
+            tmp = fileCoordinates[i].split("#");
             if(isStartPoint){
-                startPoint = new LatLng(track.get(i).getLatitude(), track.get(i).getLongitude());
+                startPoint = new LatLng(parseDouble(tmp[0]), parseDouble(tmp[1]));
                 options.add(startPoint);
                 isStartPoint=false;
             }else{
-                options.add((new LatLng(track.get(i).getLatitude(), track.get(i).getLongitude())));
+                options.add((new LatLng(parseDouble(tmp[0]), parseDouble(tmp[1]))));
             }
         }
         //display the polyline
